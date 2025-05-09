@@ -103,12 +103,79 @@
 
 // ***** Create Object with function return
 
-function person(): { firstName: string; lastName: string; age: number } {
-  return {
-    lastName: "Sadiq",
-    firstName: "Jawad",
-    age: 22,
-  };
-}
+// function person(): { firstName: string; lastName: string; age: number } {
+//   return {
+//     lastName: "Sadiq",
+//     firstName: "Jawad",
+//     age: 22,
+//   };
+// }
 
-console.log(person());
+// console.log(person());
+
+// ***** type : it is like variable declaring but it is type declaring
+// type User = {
+//   name: string;
+//   lastName: string;
+//   age: number;
+// };
+
+// function userInfo(user: User) {
+//   return `My name is  ${user.name}, my last Name is ${user.lastName} and my age is ${user.age} `;
+// }
+// console.log(userInfo({ name: "jawad", lastName: "Sadiq", age: 22 }));
+
+// ***** Optional Properties : in this type we can make a object propertie optional that user can put a value or not
+// ***** Also we have readonly propertie that we can put a value just one time and it we can not cahnge it
+
+// type User = {
+//   name: string;
+//   readonly lastName: string;
+//   age?: number;
+// };
+
+// function userInfo(user: User) {
+//   return `My name is  ${user.name}, my last Name is ${user.lastName} and my age is ${user.age} `;
+// }
+// console.log(userInfo({ name: "jawad", lastName: "Sadiq", age: 22 }));
+// age === no value
+// console.log(userInfo({ name: "jawad", lastName: "Sadiq" }));
+
+// const user: User = {
+//   name: "Jamil",
+//   lastName: "Sadiq",
+// };
+// It has error because it is readonly
+// user.lastName = "Ali";
+
+// ***** Type intersection : in this kind we can combine two or more types
+
+// type info = {
+//   name: string;
+//   last: string;
+//   age: number;
+// };
+
+// type employ = {
+//   job: string;
+//   alive: boolean;
+// };
+
+// type companyEmploy = info & employ;
+
+// const aliInfo: companyEmploy = {
+//   name: "ALI",
+//   last: "Ahmadi",
+//   age: 25,
+//   job: "Officer",
+//   alive: true,
+// };
+
+// console.log(aliInfo);
+
+// ***** Unions : in this type we can put mutiple type that user can have each one of them he want
+
+const password: string | number = 20;
+const pass: string | number | boolean = true;
+// bu it is error
+const passw: string | number | boolean = [22];

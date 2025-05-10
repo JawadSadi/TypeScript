@@ -175,7 +175,117 @@
 
 // ***** Unions : in this type we can put mutiple type that user can have each one of them he want
 
-const password: string | number = 20;
-const pass: string | number | boolean = true;
+// const password: string | number = 20;
+// const pass: string | number | boolean = true;
 // bu it is error
-const passw: string | number | boolean = [22];
+// const passw: string | number | boolean = [22];
+
+// we can set for array mutiple types by union
+// const passw: (number | string)[] = [22, "jawad"];
+
+// ***** Litterals : in this kind ypu can specifi some specific values that a varibale can have
+
+// let number: 50 | 20 | 10 | 30;
+
+// number = 50;
+// error because it is not in ltterals
+// number = 5;
+
+// we can do both in one step
+// let color: "green" | "red" | "blue" = "green";
+// console.log(number);
+
+// ***** Tuples : it is a type array that in that format you can set your array it should in the same order
+
+// const myTuples: [string, number, boolean] = ["Jawad", 22, true];
+
+// we can do destructuring also
+
+// const [myName, age, sleep] = myTuples;
+
+// console.log(
+//   `my name is ${myName},I am ${age} years old and now I am ${
+//     sleep ? "sleep" : "awake"
+//   }`
+// );
+
+// ***** Enum : These are use to specifi named constants
+
+// enum constantColors {
+//   Red = "red",
+//   Blue = "blue",
+//   Green = "green",
+//   Yellow = "yellow",
+// }
+
+// const currentColor = constantColors.Red;
+
+// console.log(`The current Color is ${currentColor}`);
+
+// ***** Classes in typescript
+
+// class Person {
+//   myName: string;
+//   age: number;
+
+//   constructor(myName: string, age: number) {
+//     this.myName = myName;
+//     this.age = age;
+//   }
+// }
+
+// const person = new Person("Jawad", 22);
+
+// console.log(person);
+
+// ***** Access Modifiers in Typescript
+
+// class Human {
+//   public firstName: string;
+//   protected age: number;
+//   private lastName: string;
+
+//   constructor(firstName: string, lastName: string, age: number) {
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//     this.age = age;
+//   }
+
+//   We can access to three in here
+//   getName(): string {
+//     return `${this.firstName} ${this.lastName} and ${this.age}`;
+//   }
+// }
+
+// const person = new Human("Jawad", "Sadiq", 22);
+// We can not access to private field in here it is error
+// console.log(person.lastName);
+// also we can not access to protected in here
+// console.log(person.age);
+// console.log(person.getName());
+
+// class Person extends Human {
+//   constructor(first: string, last: string, age: number) {
+//     super(first, last, age);
+//   }
+// }
+//   we can access to protexted here in its subclass
+// const person2 = new Person("Jamil", "Sadiq", 26);
+
+// ***** SETTERS AND GETTERS
+// class Human {
+//   private lastName: string;
+
+//   get getMyLastName(): string {
+//     return this.lastName;
+//   }
+
+//   set setMyLastName(value: string) {
+//     this.lastName = value;
+//   }
+// }
+
+// const person = new Human();
+
+// person.setMyLastName = "jawad";
+// console.log(person.getMyLastName);

@@ -1,3 +1,6 @@
+import axios, { AxiosError, AxiosResponse } from "axios";
+import express, { Request, Response } from "express";
+
 // ***** Type interFace : The compiler automatic by initiating the value knows whitch type is it.
 // let tech = "TypeScript";
 // If i put number it take error
@@ -381,73 +384,180 @@
 // ***** Generics : in this type we can make reusable functions and classes instead of making  function for each type
 // ***** sepraitly we can specify one function that when call he choose the type of the function
 
-function printInfo<T>(para: T): T {
-  return para;
-}
+// function printInfo<T>(para: T): T {
+//   return para;
+// }
 
-console.log(printInfo<number>(22));
-console.log(printInfo<string>("Jawad"));
-console.log(printInfo<boolean>(true));
+// console.log(printInfo<number>(22));
+// console.log(printInfo<string>("Jawad"));
+// console.log(printInfo<boolean>(true));
 
-function filterArray<T>(array: T[], codition: (number: T) => boolean) {
-  return array.filter((num) => codition(num));
-}
-const regularArray = [1, 2, 3, 6, 10, 13, 11, 20];
-const regularStrings = ["apple", "banana", "Orange", "watermelon"];
+// function filterArray<T>(array: T[], codition: (number: T) => boolean) {
+//   return array.filter((num) => codition(num));
+// }
+// const regularArray = [1, 2, 3, 6, 10, 13, 11, 20];
+// const regularStrings = ["apple", "banana", "Orange", "watermelon"];
 
-const evenNumbers = filterArray<number>(regularArray, (num) => num % 2 === 0);
-const shorStrings = filterArray<string>(
-  regularStrings,
-  (str) => str.length < 6
-);
-console.log(evenNumbers);
-console.log(shorStrings);
+// const evenNumbers = filterArray<number>(regularArray, (num) => num % 2 === 0);
+// const shorStrings = filterArray<string>(
+//   regularStrings,
+//   (str) => str.length < 6
+// );
+// console.log(evenNumbers);
+// console.log(shorStrings);
 
-interface Fruit {
-  name: string;
-  color: string;
-}
+// interface Fruit {
+//   name: string;
+//   color: string;
+// }
 
-const fruitsArray: Fruit[] = [
-  { name: "Apple", color: "red" },
-  { name: "Orange", color: "orange" },
-  { name: "banana", color: "yellow" },
-];
+// const fruitsArray: Fruit[] = [
+//   { name: "Apple", color: "red" },
+//   { name: "Orange", color: "orange" },
+//   { name: "banana", color: "yellow" },
+// ];
 
-const redFruits = filterArray<Fruit>(
-  fruitsArray,
-  ({ color }) => color === "red"
-);
+// const redFruits = filterArray<Fruit>(
+//   fruitsArray,
+//   ({ color }) => color === "red"
+// );
 
-console.log(redFruits);
+// console.log(redFruits);
 
-function reversePair<T, U>(value1: T, value2: U): [U, T] {
-  return [value2, value1];
-}
+// function reversePair<T, U>(value1: T, value2: U): [U, T] {
+//   return [value2, value1];
+// }
 
-console.log(reversePair<number, string>(22, "Jawad"));
+// console.log(reversePair<number, string>(22, "Jawad"));
 
-class Box<T> {
-  private content: T;
+// class Box<T> {
+//   private content: T;
 
-  constructor(initialContent: T) {
-    this.content = initialContent;
-  }
+//   constructor(initialContent: T) {
+//     this.content = initialContent;
+//   }
 
-  getContent(): T {
-    return this.content;
-  }
-  setContent(newContent: T) {
-    this.content = newContent;
-  }
-}
+//   getContent(): T {
+//     return this.content;
+//   }
+//   setContent(newContent: T) {
+//     this.content = newContent;
+//   }
+// }
 
-const stringBox = new Box<string>("Fruits");
-const numberBox = new Box<number>(20);
-console.log(stringBox.getContent());
-stringBox.setContent("Drinks");
-console.log(stringBox.getContent());
+// const stringBox = new Box<string>("Fruits");
+// const numberBox = new Box<number>(20);
+// console.log(stringBox.getContent());
+// stringBox.setContent("Drinks");
+// console.log(stringBox.getContent());
 
-console.log(numberBox.getContent());
-numberBox.setContent(30);
-console.log(numberBox.getContent());
+// console.log(numberBox.getContent());
+// numberBox.setContent(30);
+// console.log(numberBox.getContent());
+
+// ***** Type Narrowing : in this you specifi the type by conditions we have three kind of this
+
+// *** 1: Type Guard : on of this type is typeof that we use in our conditions
+
+// type myType = string | number;
+
+// function example(myValue: myType): void {
+//   if (typeof myValue === "string") {
+//     console.log(myValue.toUpperCase());
+//   } else {
+//     console.log(myValue.toFixed(2));
+//   }
+// }
+
+// example("Jawad");
+// example(2400.2345);
+
+// *** 2: instanceof propertie
+
+// class Dog {
+//   bark(): void {
+//     console.log("Woff Woff");
+//   }
+// }
+// class Cat {
+//   meow(): void {
+//     console.log("Meow Meow");
+//   }
+// }
+
+// function animalSound(animal: Dog | Cat): void {
+//   if (animal instanceof Dog) {
+//     animal.bark();
+//   }
+//   if (animal instanceof Cat) {
+//     animal.meow();
+//   }
+// }
+
+// const myDog = new Dog();
+// const myCat = new Cat();
+
+// animalSound(myDog);
+// animalSound(myCat);
+
+// *** 3: Intersection type  in this type we combine multiple types
+
+// type employe = {
+//   id: number;
+//   name: string;
+// };
+
+// type manager = {
+//   department: string;
+//   role: string;
+// };
+
+// const managerWithemploy: employe & manager = {
+//   department: "Computer science",
+//   id: 200034,
+//   name: "Jawad",
+//   role: "Team Leader",
+// };
+
+// console.log(managerWithemploy);
+
+// ***** Fecthing data by AXIOS library
+
+// interface Todo {
+//   userId: number;
+//   id: number;
+//   title: string;
+//   completed: boolean;
+// }
+
+// const fetchData = async () => {
+//   try {
+//     const res: AxiosResponse<Todo> = await axios.get(
+//       "https://jsonplaceholder.typicode.com/todos/1"
+//     );
+//     console.log(res.data);
+//   } catch (error: any) {
+//     if (axios.isAxiosError(error)) {
+//       console.log("Axios Error", error.message);
+
+//       if (error.response) {
+//         console.log("Error response", error.response.status);
+//       }
+//     } else {
+//       console.log("Error message", error.message);
+//     }
+//   }
+// };
+
+// fetchData();
+
+// ***** Express simple example
+
+const app = express();
+const port = 3000;
+
+app.get("/", (request: Request, response: Response) => {
+  response.send("Hello typescript with Express!");
+});
+
+app.listen(port, () => console.log(`Server runnig on port ${port}`));
